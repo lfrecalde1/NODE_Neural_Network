@@ -30,7 +30,7 @@ def f_d(x, ts, f_system):
     aux_x = np.array(x[:,0]).reshape((2,))
     return aux_x
 
-def model_system() ->Function:
+def model_system():
     g = 1.0  # gravity
     l = 1.0  # length pendulum
     b = 0.5  # System viscosity
@@ -185,7 +185,7 @@ def main(args):
     nn_vanilla = construct_network(1, 2, hidden_dim, hidden_layers, device)
 
     opt_vanilla = torch.optim.Adam(nn_vanilla.parameters())
-
+    tic = time.time()
     for epoch in tqdm(range(n_epochs), desc="vanilla: training epoch"):
         out = nn_vanilla(t_train.unsqueeze(-1)).T
 
@@ -195,7 +195,9 @@ def main(args):
         opt_vanilla.step()
         nn_vanilla.zero_grad()
         losses["vanilla"]["collocation"].append(loss_collocation.item())
-
+    
+    toc = time.time()- tic
+    print(toc)
     y_predict = nn_vanilla(t.unsqueeze(-1)).detach().detach().cpu().T
     plot_predictions(model = model, y_pred = y_predict, t_eval = t_eval, res = x, step_size = step_size, subsample_every = subsample_every)
     
