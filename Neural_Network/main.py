@@ -111,17 +111,6 @@ def plot_predictions(model, y_pred, t_eval, res, step_size, subsample_every):
     ax2.legend()
     plt.show()
 
-# plot loss functions as function of training steps
-def plot_losses(model, losses):
-    fig, ax = plt.subplots()
-    fig.canvas.manager.set_window_title(f"loss terms '{model}'")
-
-    for loss_name, loss in losses.items():
-        ax.plot(loss, label=loss_name)
-
-    ax.legend()
-    ax.set_xlabel("epoch")
-
 def main(args):
     # Setup Experiments
     # Initial Conditions of the system
