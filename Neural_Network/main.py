@@ -80,7 +80,7 @@ def plot_predictions(model, y_pred, t_eval, res, step_size, subsample_every):
     theta = res[0,:]
     omega = res[1,:]
 
-    ω_numerical = np.diff(y_pred[:1]) / step_size
+    omega_numerical = np.diff(y_pred[:1]) / step_size
     fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
     fig.canvas.manager.set_window_title(model)
     ax1.set_ylabel("theta(t)")
@@ -93,7 +93,7 @@ def plot_predictions(model, y_pred, t_eval, res, step_size, subsample_every):
     ax2.plot(t_eval, omega, c="black", label="true")
     ax2.plot(t_eval, y_pred[1], c="r", linestyle="--", label="predicted")
     ax2.plot(t_eval[1:],
-            ω_numerical.T,
+            omega_numerical.T,
             c="r",
             linestyle="dotted",
             label="numerical",)
